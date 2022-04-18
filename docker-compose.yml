@@ -3,8 +3,16 @@ version: '3'
 services:
   nodejs:
     #fill out the configuration here
-    networks:
-      - app-network
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      image: test
+      container_name: app
+      restart: unless-stopped
+      # volumes: 
+      #   - web-root:home/node/app
+      networks:
+        - app-network
   
   #the nginx configuration is given below
   #the website will run on localhost:80 
@@ -28,7 +36,7 @@ volumes:
     driver_opts:
       type: none
       #fill out your absolute path to your folder here
-      device: /absolute/path/to/web/template/folder
+      device: /Users/yoelpopovici/Documents/School/Spring2022/CMSC389T/docker/cmsc389T-web-template
       o: bind
 
 networks:
